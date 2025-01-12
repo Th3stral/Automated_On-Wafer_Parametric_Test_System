@@ -1,0 +1,13 @@
+# tested env
+# Python 3.10.14
+# Python 3.10.16
+# Python 3.11.11
+# Python 3.12.8
+
+gdstk==0.9.58
+numpy==2.2.1
+pandas==2.2.3
+plotly==5.24.1
+PyVISA==1.14.1
+scikit_learn==1.6.0
+streamlit==1.40.2

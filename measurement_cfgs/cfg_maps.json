@@ -1,0 +1,216 @@
+{
+    "AgAgCl_TS_Kelvin_R2_single_die": {
+        "structure": {
+            "material": {
+                "empty_test": {
+                    "LW300": {
+                        "0": {
+                            "alias": "LW300",
+                            "pin_cfgs": [],
+                            "curr_cfg": "bridges_only"
+                        }
+                    },
+                    "LW600": {
+                        "0": {
+                            "alias": "LW600",
+                            "pin_cfgs": [],
+                            "curr_cfg": "bridges_only"
+                        }
+                    },
+                    "GC20_SC300": {
+                        "0": {
+                            "alias": "",
+                            "pin_cfgs": [],
+                            "curr_cfg": "GC_only"
+                        },
+                        "1": {
+                            "alias": "",
+                            "pin_cfgs": [
+                                "SC_P",
+                                "SC_N"
+                            ],
+                            "curr_cfg": "bridges_only"
+                        }
+                    }
+                }
+            }
+        },
+        "in_block_column": {
+            "in_block_row": {
+                "test": {
+                    "1": {
+                        "0": {
+                            "alias": 1,
+                            "pin_cfgs": [],
+                            "curr_cfg": null
+                        }
+                    },
+                    "2": {
+                        "0": {
+                            "alias": 2,
+                            "pin_cfgs": [],
+                            "curr_cfg": null
+                        }
+                    },
+                    "3": {
+                        "0": {
+                            "alias": 3,
+                            "pin_cfgs": [],
+                            "curr_cfg": null
+                        }
+                    }
+                }
+            }
+        },
+        "material": {
+            "structure": {
+                "test": {
+                    "Pt": {
+                        "0": {
+                            "alias": "Pt",
+                            "pin_cfgs": [],
+                            "curr_cfg": "test_mat"
+                        }
+                    },
+                    "Ag_Cl": {
+                        "0": {
+                            "alias": "Ag_Cl",
+                            "pin_cfgs": [],
+                            "curr_cfg": "test_mat"
+                        }
+                    },
+                    "Pt_Cl": {
+                        "0": {
+                            "alias": "Pt_Cl",
+                            "pin_cfgs": [],
+                            "curr_cfg": "test_mat"
+                        }
+                    },
+                    "Pt_Ag": {
+                        "0": {
+                            "alias": "Pt_Ag",
+                            "pin_cfgs": [],
+                            "curr_cfg": "test_mat"
+                        }
+                    },
+                    "Ag": {
+                        "0": {
+                            "alias": "Ag",
+                            "pin_cfgs": [],
+                            "curr_cfg": "test_mat"
+                        }
+                    },
+                    "Pt_Ag_Cl": {
+                        "0": {
+                            "alias": "Pt_Ag_Cl",
+                            "pin_cfgs": [],
+                            "curr_cfg": "test_mat"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "AGCL_whole_wafer": {
+        "structure": {
+            "material": {
+                "general_curr_for_all": {
+                    "LW300": {
+                        "0": {
+                            "alias": "LW300",
+                            "pin_cfgs": [
+                                "LW300_P",
+                                "LW300_N"
+                            ],
+                            "curr_cfg": "general"
+                        }
+                    },
+                    "LW600": {
+                        "0": {
+                            "alias": "LW600",
+                            "pin_cfgs": [
+                                "LW600_N",
+                                "LW600_P"
+                            ],
+                            "curr_cfg": "general"
+                        }
+                    },
+                    "GC20_SC300": {
+                        "0": {
+                            "alias": "GC20",
+                            "pin_cfgs": [
+                                "GC20_L_R0_P",
+                                "GC20_L_R90_P",
+                                "GC20_L_R0_N",
+                                "GC20_L_R90_N"
+                            ],
+                            "curr_cfg": "general"
+                        },
+                        "1": {
+                            "alias": "SC300",
+                            "pin_cfgs": [
+                                "SC_P",
+                                "SC_N"
+                            ],
+                            "curr_cfg": "general"
+                        }
+                    }
+                },
+                "agpt_only": {
+                    "LW300": {
+                        "0": {
+                            "alias": "LW300",
+                            "pin_cfgs": [
+                                "LW300_P",
+                                "LW300_N"
+                            ],
+                            "curr_cfg": "ag_pt_only",
+                            "comp_v": 1.0,
+                            "nplc": 2.0,
+                            "nrdgs": 1
+                        }
+                    },
+                    "LW600": {
+                        "0": {
+                            "alias": "LW600",
+                            "pin_cfgs": [
+                                "LW600_N",
+                                "LW600_P"
+                            ],
+                            "curr_cfg": "ag_pt_only",
+                            "comp_v": 1.0,
+                            "nplc": 2.0,
+                            "nrdgs": 1
+                        }
+                    },
+                    "GC20_SC300": {
+                        "0": {
+                            "alias": "GC20",
+                            "pin_cfgs": [
+                                "GC20_L_R0_P",
+                                "GC20_L_R90_P",
+                                "GC20_L_R0_N",
+                                "GC20_L_R90_N"
+                            ],
+                            "curr_cfg": "ag_pt_only",
+                            "comp_v": 1.0,
+                            "nplc": 2.0,
+                            "nrdgs": 1
+                        },
+                        "1": {
+                            "alias": "SC30",
+                            "pin_cfgs": [
+                                "SC_P",
+                                "SC_N"
+                            ],
+                            "curr_cfg": "ag_pt_only",
+                            "comp_v": 1.0,
+                            "nplc": 2.0,
+                            "nrdgs": 1
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

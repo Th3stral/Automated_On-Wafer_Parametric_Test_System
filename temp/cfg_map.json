@@ -1,0 +1,1 @@
+{"GC20_SC300": {"0": {"alias": "GC20_SC300", "pin_cfgs": ["GC20_L_R0_P", "GC20_L_R90_P", "GC20_L_R0_N", "GC20_L_R90_N"], "curr_cfg": "stability_currs", "comp_v": 1.0, "nplc": 2.0, "nrdgs": 1}}}

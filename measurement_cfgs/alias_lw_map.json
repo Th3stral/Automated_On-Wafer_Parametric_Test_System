@@ -1,0 +1,30 @@
+{
+    "AGCL_whole_wafer": {
+        "LW300": {
+            "length": 300.0,
+            "width": 20.0
+        },
+        "LW600": {
+            "length": 600.0,
+            "width": 20.0
+        },
+        "SC300": {
+            "length": 300.0,
+            "width": 20.0
+        },
+        "GC20": {
+            "length": 100.0,
+            "width": 10.0
+        },
+        "SC30": {
+            "length": 300.0,
+            "width": 20.0
+        }
+    },
+    "AgAgCl_TS_Kelvin_R2_single_die": {
+        "LW300": {
+            "length": 300.0,
+            "width": 20.0
+        }
+    }
+}

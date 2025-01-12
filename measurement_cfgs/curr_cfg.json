@@ -1,0 +1,152 @@
+{
+    "crossbridge2019": {
+        "wafer": {},
+        "block_row": {},
+        "in_block_row": {
+            "test": {
+                "1": [
+                    1234321.0
+                ]
+            }
+        },
+        "block_number_in_die": {},
+        "material": {
+            "CB2019": {
+                "unknown": [
+                    0.0005
+                ]
+            }
+        },
+        "structure": {},
+        "in_block_column": {}
+    },
+    "AgAgCl_TS_Kelvin_R2_single_die": {
+        "material": {
+            "ag_only": {
+                "Pt": [],
+                "Ag": [
+                    0.001,
+                    0.0005
+                ],
+                "Pt_Ag": [],
+                "Pt_Cl": [],
+                "Ag_Cl": [],
+                "Pt_Ag_Cl": []
+            },
+            "ptandag": {
+                "Pt": [
+                    5e-05
+                ],
+                "Ag": [
+                    0.001,
+                    0.0005
+                ],
+                "Pt_Ag": [],
+                "Pt_Cl": [],
+                "Ag_Cl": [],
+                "Pt_Ag_Cl": []
+            },
+            "GC_only": {
+                "Pt": [
+                    5e-05
+                ],
+                "Ag": [
+                    0.0005,
+                    0.001
+                ],
+                "Pt_Ag": [
+                    0.0005,
+                    0.001
+                ],
+                "Pt_Cl": [
+                    5e-05
+                ],
+                "Ag_Cl": [
+                    0.0005
+                ],
+                "Pt_Ag_Cl": [
+                    0.0005
+                ]
+            },
+            "bridges_only": {
+                "Pt": [
+                    0.001
+                ],
+                "Ag": [
+                    0.001
+                ],
+                "Pt_Ag": [
+                    0.001
+                ],
+                "Pt_Cl": [
+                    0.001
+                ],
+                "Ag_Cl": [
+                    0.001
+                ],
+                "Pt_Ag_Cl": [
+                    0.001
+                ]
+            }
+        },
+        "structure": {
+            "test_mat": {
+                "LW300": [
+                    2131.0
+                ],
+                "GC20_SC300": [],
+                "LW600": []
+            }
+        },
+        "in_block_row": {},
+        "in_block_column": {}
+    },
+    "AGCL_whole_wafer": {
+        "in_block_row": {},
+        "material": {
+            "general": {
+                "Pt": [
+                    0.0005,
+                    0.001
+                ],
+                "Ag": [
+                    0.0005,
+                    0.001
+                ],
+                "Pt_Ag": [
+                    0.0005,
+                    0.001
+                ],
+                "Pt_Cl": [
+                    0.0005,
+                    0.001
+                ],
+                "Ag_Cl": [
+                    0.0005,
+                    0.001
+                ],
+                "Pt_Ag_Cl": [
+                    0.0005,
+                    0.001
+                ]
+            },
+            "ag_pt_only": {
+                "Pt": [
+                    0.0001,
+                    0.0005
+                ],
+                "Ag": [
+                    0.0005,
+                    0.001
+                ],
+                "Pt_Ag": [],
+                "Pt_Cl": [],
+                "Ag_Cl": [],
+                "Pt_Ag_Cl": []
+            }
+        },
+        "in_block_column": {},
+        "structure": {},
+        "mat": {}
+    }
+}
