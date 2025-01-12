@@ -1,14 +1,14 @@
 # Automated On-Wafer Parametric Test System
 
-# Setting Up and Running the test program
-This guide will walk you through the process of installing Python 3.10, navigating to your project directory, installing dependencies, and running a the test program.
+**A detailed hardware related system set up guide has been provided in:**
+([https://www.keysight.com/us/en/lib/software-detail/computer-software/io-libraries-suite-downloads-2175637.html](https://github.com/Th3stral/Automated_On-Wafer_Parametric_Test_System/blob/main/system_set_up_guide.pdf))
+**Here is a basic guide walk you through the process of installing Python, navigating to your project directory, installing dependencies, and running a the test application.**
 
 ## Prerequisites
-
 - A computer running Windows, or Linux
 - Internet connection
 
-## Step 1: Install Python 3.10 or Later
+## Step 1: Install Python 3.10 , 3.11, or 3.12
 
 1. **Download Python 3.10:**
 
