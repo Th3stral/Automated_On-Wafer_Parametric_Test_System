@@ -1,7 +1,7 @@
 # Automated On-Wafer Parametric Test System
 
 **A detailed hardware related system set up guide has been provided in:**
-[https://www.keysight.com/us/en/lib/software-detail/computer-software/io-libraries-suite-downloads-2175637.html](https://github.com/Th3stral/Automated_On-Wafer_Parametric_Test_System/blob/main/system_set_up_guide.pdf)
+[https://github.com/Th3stral/Automated_On-Wafer_Parametric_Test_System/blob/main/system_set_up_guide.pdf](https://github.com/Th3stral/Automated_On-Wafer_Parametric_Test_System/blob/main/system_set_up_guide.pdf)
 
 **Here is a basic guide walk you through the process of installing Python, navigating to your project directory, installing dependencies, and running a the test application.**
 
