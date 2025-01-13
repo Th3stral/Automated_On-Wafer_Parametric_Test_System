@@ -12,7 +12,18 @@ import config as sys_config
 
 
 def hw_stu_check(pb_addr=1, smu_addr=23, swm_addr=22, dmm_addr=12):
+    """
+    Performs health checks on PB, DMM, SMU, and SWM hardware components.
 
+    Args:
+        pb_addr (int): Address for the Prober (PB).
+        smu_addr (int): Address for the Source Measure Unit (SMU).
+        swm_addr (int): Address for the Switch Matrix (SWM).
+        dmm_addr (int): Address for the Digital Multimeter (DMM).
+
+    Returns:
+        dict: A dictionary containing the health check results for each device.
+    """
     stu_dict = {}
     rm = pyvisa.ResourceManager() # create the resource manager osbject
 

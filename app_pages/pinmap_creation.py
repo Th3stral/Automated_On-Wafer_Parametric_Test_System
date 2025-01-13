@@ -26,50 +26,15 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# connection_design_container = st.container(border=True)
 
-# row1 = connection_design_container.columns(4)
-# row2 = connection_design_container.columns(4)
-
-# Assign keys for widgets in row1 ("u1" to "u4") and row2 ("d1" to "d4")
-
-
+# Load the system configuration
 pin_map_file = sys_config.PIN_MAP_FILE_PATH
 pin_keys = sys_config.SWM_PIN_ALIAS_LIST
-# pin_keys = ["u1", "u2", "u3", "u4", "d1", "d2", "d3", "d4"]
-
-
-# # List of available resources
-# resources = [
-#     "smu1 (40uV-100V 100mA)",
-#     "smu2 (40uV-200V 1A)",
-#     "smu3 (40uV-100V 100mA)",
-#     "smu4 (40uV-100V 100mA)",
-#     "vs1 (+/- 40V)",
-#     "vs2 (+/- 40V)",
-#     "gnd (SMU ground)",
-#     "dmm_hi",
-#     "dmm_lo",
-# ]
-# # print("init resources:", resources)
-# resources = ["floating"] + resources
 
 resources = sys_config.SWM_CONNECTED_RESOURCES_LIST
 
 
 
-# resource_dict = {
-#     "smu1 (40uV-100V 100mA)": "smu1",
-#     "smu2 (40uV-200V 1A)": "smu2",
-#     "smu3 (40uV-100V 100mA)": "smu3",
-#     "smu4 (40uV-100V 100mA)": "smu4",
-#     "vs1 (+/- 40V)": "vs1",
-#     "vs2 (+/- 40V)": "vs2",
-#     "gnd (SMU ground)": "gnd",
-#     "dmm_hi": "dmm_hi",
-#     "dmm_lo": "dmm_lo",
-#     "floating": None
-# }
 resource_dict = sys_config.SWM_CONNECTED_RESOURCES_ALIAS_DICT
 
 
@@ -92,6 +57,7 @@ def reassign_resource(selected_resource, index):
 
 @st.fragment
 def pin_assignment():
+    # Create the container for the pin assignment
     connection_design_container = st.container(border=True)
     connection_design_container.markdown("<h2 class='selectbox-title'>Create New Pin Map</h2>", unsafe_allow_html=True)
 
@@ -100,6 +66,7 @@ def pin_assignment():
     col_num = 4
     row_num = 2
 
+    # Split the container into two rows
     row1 = connection_design_container.columns(col_num)
     html_container = connection_design_container.container()
     if row_num == 2:
@@ -176,6 +143,7 @@ def pin_assignment():
             st.session_state.reassign = reassign_resource(selected_resource, i)
     
     with connection_design_container:
+        # Display a warning if more than one SMU channel is selected
         count = sum(1 for s in st.session_state.selected_resources if (s.startswith("smu") or s.startswith("vs")))
         if count > 1:
             st.warning("more than one SMU channel is selected, this function is not supported yet, please select only one SMU channel")
@@ -183,11 +151,11 @@ def pin_assignment():
             st.warning("no SMU channel is selected, you need to select one SMU channel to force the current")
 
 
-        quick_func_buttons_container = st.container(border=True)
+        quick_func_buttons_container = st.container(border=True) # Create a container for the quick functions
         with quick_func_buttons_container:
             # NOTE: the first three quick functions adapt to the current 2*4 layout only, the last one is a general function
             
-            st.write("### Quick Functions")
+            st.write("### Quick Functions") # Display the title of the quick functions
             quick_funcs_container = st.container()
             
             quick_func_col1, quick_func_col2, quick_func_col3, quick_func_col4 = quick_funcs_container.columns(4)
@@ -303,7 +271,7 @@ pin_assignment()
 
 @st.fragment()
 def show_del_existing_maps():
-
+    # Load the existing configurations
     df = pd.DataFrame(st.session_state.pin_cfgs)
     # display existing configurations
     save_del_container = st.container(border=True)
@@ -317,6 +285,7 @@ def show_del_existing_maps():
         index=None, 
         placeholder="Select a configuration to delete"
     )
+    # delete the selected configuration
     if col_select_del.button("Delete"):
         if to_del in st.session_state.pin_cfgs:
             del st.session_state.pin_cfgs[to_del]

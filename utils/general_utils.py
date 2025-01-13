@@ -6,6 +6,19 @@ import json
 
 ### coordinate parser functions
 def wafer_structure_to_dataframe(wafer_structure):
+    """
+    Converts the wafer structure dictionary into a Pandas DataFrame.
+
+    Args:
+        wafer_structure (dict): A dictionary where keys are die numbers and values are dictionaries 
+                                with block numbers and their coordinates.
+
+    Returns:
+        pd.DataFrame: A DataFrame containing the die, block, x, and y coordinates.
+
+    Example:
+        df = wafer_structure_to_dataframe(wafer_structure)
+    """
     rows = []
     for die_num, blocks in wafer_structure.items():
         for block_num, coordinates in blocks.items():
@@ -19,6 +32,18 @@ def wafer_structure_to_dataframe(wafer_structure):
     return pd.DataFrame(rows)
 
 def check_blocks_relative_positions(df):
+    """
+    Checks if all blocks have the same relative positions of pads.
+
+    Args:
+        df (pd.DataFrame): DataFrame containing die, block, x, and y coordinates.
+
+    Returns:
+        bool: True if all blocks have the same relative positions, False otherwise.
+
+    Example:
+        is_consistent = check_blocks_relative_positions(df)
+    """
     # Create a dictionary to store the relative positions of each block
     relative_positions = {}
     
@@ -36,7 +61,23 @@ def check_blocks_relative_positions(df):
     return all(pos == unique_positions[0] for pos in unique_positions)
 
 def reassign(df, level='block', primary='y', x_asc=True, y_asc=False, inplace = False):
+    """
+    Reassigns level numbers (block or die) based on spatial sorting.
 
+    Args:
+        df (pd.DataFrame): DataFrame with level (block or die) and x, y coordinates.
+        level (str, optional): Level to reassign ('block' or 'die'). Defaults to 'block'.
+        primary (str, optional): Primary sorting axis ('x' or 'y'). Defaults to 'y'.
+        x_asc (bool, optional): Sort x in ascending order. Defaults to True.
+        y_asc (bool, optional): Sort y in ascending order. Defaults to False.
+        inplace (bool, optional): Modify the original DataFrame. Defaults to False.
+
+    Returns:
+        pd.DataFrame or None: Modified DataFrame if inplace=False, otherwise None.
+
+    Example:
+        df = reassign(df, level='block', primary='x', x_asc=True, y_asc=True)
+    """
     # Create a copy of the original DataFrame to avoid modifying it if inplace is False
     if not inplace:
         df = df.copy()
@@ -60,6 +101,22 @@ def reassign(df, level='block', primary='y', x_asc=True, y_asc=False, inplace = 
     return df if not inplace else None
 
 def index_blocks_in_die(df, primary='y', x_asc=True, y_asc=False, inplace=False):
+    """
+    Assigns a unique index to blocks within each die based on spatial sorting.
+
+    Args:
+        df (pd.DataFrame): DataFrame containing die, block, x, and y coordinates.
+        primary (str, optional): Primary sorting axis ('x' or 'y'). Defaults to 'y'.
+        x_asc (bool, optional): Sort x in ascending order. Defaults to True.
+        y_asc (bool, optional): Sort y in ascending order. Defaults to False.
+        inplace (bool, optional): Modify the original DataFrame. Defaults to False.
+
+    Returns:
+        pd.DataFrame or None: Modified DataFrame if inplace=False, otherwise None.
+
+    Example:
+        df = index_blocks_in_die(df, primary='y', x_asc=True, y_asc=False)
+    """
     if not inplace:
         df = df.copy()
 
@@ -93,6 +150,19 @@ def index_blocks_in_die(df, primary='y', x_asc=True, y_asc=False, inplace=False)
     return df if not inplace else None
 
 def classify_blocks_into_rows_and_columns(df, inplace = False):
+    """
+    Classifies blocks into rows and columns based on their coordinates.
+
+    Args:
+        df (pd.DataFrame): DataFrame containing block, x, and y coordinates.
+        inplace (bool, optional): Modify the original DataFrame. Defaults to False.
+
+    Returns:
+        pd.DataFrame or None: Modified DataFrame if inplace=False, otherwise None.
+
+    Example:
+        df = classify_blocks_into_rows_and_columns(df)
+    """
     # Create a copy of the original DataFrame to avoid modifying it if inplace is False
     if not inplace:
         df = df.copy()
@@ -118,6 +188,20 @@ def classify_blocks_into_rows_and_columns(df, inplace = False):
     return df if not inplace else None
 
 def classify_rows_and_columns_in_blocks(df, inplace=False):
+    """
+    Classifies rows and columns for pads within each block based on coordinates.
+
+    Args:
+        df (pd.DataFrame): DataFrame containing 'block', 'x', and 'y' columns.
+        inplace (bool, optional): Whether to modify the original DataFrame. Defaults to False.
+
+    Returns:
+        tuple: Updated DataFrame, flag indicating consistency of row/column counts across blocks, 
+               maximum row count, and maximum column count.
+
+    Example:
+        df, is_consistent, row_count, col_count = classify_rows_and_columns_in_blocks(df)
+    """
     # Create a dictionary to store the row and column count of each block
     if not inplace:
         df = df.copy()
@@ -174,6 +258,23 @@ def classify_rows_and_columns_in_blocks(df, inplace=False):
     return df, same_row_col_counts, row_count, column_count
 
 def apply_labels_to_blocks(df, row_labels, row_label_meaning, column_labels, column_label_meaning, inplace=False):
+    """
+    Applies custom labels to rows and columns in blocks.
+
+    Args:
+        df (pd.DataFrame): DataFrame containing 'in_block_row' and 'in_block_column'.
+        row_labels (list): List of labels for rows.
+        row_label_meaning (str): Name for the new row label column.
+        column_labels (list): List of labels for columns.
+        column_label_meaning (str): Name for the new column label column.
+        inplace (bool, optional): Whether to modify the original DataFrame. Defaults to False.
+
+    Returns:
+        pd.DataFrame: Updated DataFrame with new row and column label columns.
+
+    Example:
+        df = apply_labels_to_blocks(df, ['A', 'B'], 'row_label', [1, 2], 'col_label')
+    """
     if not inplace:
         df = df.copy()
     # Check if all blocks have consistent row and column counts
@@ -196,7 +297,18 @@ def apply_labels_to_blocks(df, row_labels, row_label_meaning, column_labels, col
     return df
 
 def process_for_plotting(df):
+    """
+    Prepares block and die bounding box data for plotting.
 
+    Args:
+        df (pd.DataFrame): DataFrame containing 'block', 'die', 'x', and 'y' columns.
+
+    Returns:
+        tuple: DataFrames containing bounding box information for dies and blocks.
+
+    Example:
+        dies_info, blocks_info = process_for_plotting(df)
+    """
     # Calculate the min and max coordinates for each block to determine the bounding box
     block_groups = df.groupby('block')
     blocks_info = block_groups.agg({'x': ['min', 'max'], 'y': ['min', 'max']})
@@ -219,6 +331,18 @@ def save_to_json(filename, content):
 
 # Function to replace engineering symbols with scientific notation
 def replace_engineering_symbols(element):
+    """
+    Replaces engineering symbols (e.g., 'k', 'M') in a string with scientific notation.
+
+    Args:
+        element (str): Input string with engineering symbols.
+
+    Returns:
+        str: String with engineering symbols replaced by scientific notation.
+
+    Example:
+        result = replace_engineering_symbols("1k")  # result = "1e3"
+    """
     element = element.strip()
     element = re.sub(r'([0-9.]+)k', r'\1e3', element, flags=re.IGNORECASE)
     element = re.sub(r'([0-9.]+)m', r'\1e-3', element, flags=re.IGNORECASE)
@@ -233,6 +357,18 @@ def replace_engineering_symbols(element):
 
 # Function to convert a string input into a list of numbers
 def convert_string_to_list(input_string):
+    """
+    Converts a comma-separated string into a list of floats, supporting engineering notation.
+
+    Args:
+        input_string (str): Input string with comma-separated values.
+
+    Returns:
+        list: List of converted float values.
+
+    Example:
+        result = convert_string_to_list("1k, 2M, 3")
+    """
     # Split the string by commas to get individual elements
     string_elements = input_string.split(',')
     number_list = []
@@ -250,6 +386,24 @@ def convert_string_to_list(input_string):
     return number_list
 
 def check_pin_cfgs(layout_data):
+    """
+    Validates the pin configurations in the layout data.
+
+    Args:
+        layout_data (dict): A dictionary containing a 'pin_cfgs' key with a list of pin names.
+
+    Behavior:
+        - Checks if all pin names end with '_P' or '_N'.
+        - Verifies that each pin with '_P' has a corresponding '_N' with the same prefix.
+
+    Warnings:
+        - Issues warnings if a pin name does not end with '_P' or '_N'.
+        - Warns if there are unmatched '_P' or '_N' pins.
+
+    Example:
+        layout_data = {'pin_cfgs': ['A_P', 'A_N', 'B_P']}
+        check_pin_cfgs(layout_data)
+    """
     pin_cfgs = layout_data.get('pin_cfgs', [])
 
     # check if all items in the list end with '_P' or '_N'
@@ -277,6 +431,20 @@ def check_pin_cfgs(layout_data):
         st.warning("Warning: There are pin configurations ending with '_P' that do not have a corresponding '_N', or vice versa. Corrsponding measurements result may be affected.")
 
 def dropout_columns(df, columns, inplace=False):
+    """
+    Drops specified columns from the DataFrame.
+
+    Args:
+        df (pd.DataFrame): The input DataFrame.
+        columns (list): List of column names to drop.
+        inplace (bool, optional): Whether to modify the DataFrame in place. Defaults to False.
+
+    Returns:
+        pd.DataFrame: The DataFrame with specified columns dropped, unless inplace=True.
+
+    Example:
+        df = dropout_columns(df, ['column1', 'column2'])
+    """
     if not inplace:
         df = df.copy()
     for col in columns:
@@ -285,9 +453,39 @@ def dropout_columns(df, columns, inplace=False):
     return df
 
 def divide_data_by_columns(data, columns):
+    """
+    Divides a list of data into sublists based on the specified number of columns.
+
+    Args:
+        data (list): The list of data to be divided.
+        columns (int): The number of columns to divide the data into.
+
+    Returns:
+        list of lists: A list containing sublists of data.
+
+    Example:
+        divided_data = divide_data_by_columns([1, 2, 3, 4, 5, 6], 3)
+        # Result: [[1, 4], [2, 5], [3, 6]]
+    """
     return [data[i::columns] for i in range(columns)]
 
 def df_filter(df, filter_dict, inplace=False):
+    """
+    Filters rows in a DataFrame based on a dictionary of conditions.
+
+    Args:
+        df (pd.DataFrame): The input DataFrame.
+        filter_dict (dict): A dictionary where keys are column names and values are filter conditions.
+                            - If the value is a list or set, rows are filtered using `isin`.
+                            - Otherwise, rows are filtered using equality.
+        inplace (bool, optional): Whether to modify the DataFrame in place. Defaults to False.
+
+    Returns:
+        pd.DataFrame: The filtered DataFrame, unless inplace=True.
+
+    Example:
+        filtered_df = df_filter(df, {'column1': [1, 2], 'column2': 'A'})
+    """
     # # if the certrain key is not in the filter_dict, then the filter is not applied
     # for key in filter_dict:
     #     if key in df.columns:

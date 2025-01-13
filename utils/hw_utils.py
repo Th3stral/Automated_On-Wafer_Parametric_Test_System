@@ -108,15 +108,19 @@ class SMUhwcmd:
         return fetched_errors
     
     def _reset(self):
+        # use this command to reset the SMU
         self.driver.write('*RST')
 
     def _query_identity(self):
+        # query the identity of the SMU
         return self.driver.query('*IDN?')
     
     def _start_self_calibration(self, slot=None):
+        # this command starts the self calibration of the SMU
         self.driver.write(f'CA {slot or ""}')
 
     def _start_self_test(self, slot=None):
+        # this command starts the self test of the SMU
         test_result = self.driver.query(f"*TST? {slot or ''}")
         return test_result
     
@@ -137,18 +141,23 @@ class SMUinterface(SMUhwcmd):
             print(f"Error translation function not available: {e}")
 
     def __search_error_dict(self, error_code, error_codes):
+        # search error code in the error code dictionary
         return error_codes.get(error_code, f"Error code {error_code} not found. Please check the manual for more information.")
 
     def __translate_error_message(self, error_code):
+        # translate error code to error message
         if int(error_code) <= 999:
+            # error code is less than 1000, it is a SMU error
             error_message = self.__search_error_dict(error_code, self.error_codes)
             return f"SMU error: {error_message}"
         elif int(error_code) <= 9999:
+            # error code is between 1000 and 9999, it is a VS/VMU error
             slot = error_code[:1]
             error_code = error_code[1:]
             error_message = self.__search_error_dict(error_code, self.error_codes)
             return f"SMU slot {slot} error: {error_message}"
         else:
+            # error code is larger than 9999, it is a VS/VMU channel error
             channel = error_code[:2]
             error_code = error_code[2:]
             print(error_code, channel)
@@ -156,6 +165,7 @@ class SMUinterface(SMUhwcmd):
             return f"VS/VMU channel {channel} error: {error_message}"    
 
     def query_translate_error_list(self):
+        # query error list and translate error code to error message
         fetched_errors = self._query_errors()
         # no error
         if fetched_errors[0] == "0":
@@ -175,6 +185,7 @@ class SMUinterface(SMUhwcmd):
             return fetched_errors
         
     def check_errors(self):
+        # check errors and raise HardwareError if error exists
         error_list = self.query_translate_error_list()
         if error_list:
             raise HardwareError(message = f"Error from SMU: {error_list}", errors = error_list, module = "SMU")
@@ -183,9 +194,9 @@ class SMUinterface(SMUhwcmd):
         # take spot current measurement here so query can be used
         current_with_header = self._measure_spot_current(ch)
         current_value = float(current_with_header[3:])
-        status = current_with_header[0]
-        channel = current_with_header[1]
-        measurement_type = current_with_header[2]
+        status = current_with_header[0] # this is the status byte
+        channel = current_with_header[1] # this is the channel number
+        measurement_type = current_with_header[2] # this is the measurement type
         return current_value, status, channel, measurement_type
     
     def perform_self_calibration(self, slot=None):
@@ -229,15 +240,18 @@ class SMUinterface(SMUhwcmd):
         try:
             self.driver.timeout = TIMEOUT_SELF_TEST
             test_result = self._start_self_test(slot)
-            if test_result != '0':
+            if test_result != '0': # test failed
                 try:
+                    # convert test result to integer
                     test_result = int(test_result)
                     translated_result = [
                         message for bit, message in BIT_TO_ERROR_MAPPING.items() if test_result & bit
                     ]
                 except ValueError:
+                    # test result is not an integer
                     translated_result = [f"Unknown test result: {test_result}"]
                 raise HardwareError(
+                    # raise HardwareError with translated error messages
                     message=(
                         f"SMU self test failed for slot {slot} with result: {test_result}. "
                         "Please check the manual for more information."
@@ -469,24 +483,31 @@ class DMMhwcmd:
         self.driver.write(f'NRDGS {nrdgs or ""},{event or ""}')
     
     def _set_display(self, display):
+        # this command sets the display to specified mode
         self.driver.write(f'DISP {display or ""}')
 
     def _beep_once(self):
+        # this command makes the DMM beep once
         self.driver.write('TONE')
 
     def _reset(self):
+        # this command resets the DMM
         self.driver.write('RESET')
 
     def _query_identity(self):
+        # this command queries the identity of the DMM
         return self.driver.query('ID?')
     
     def _start_self_calibration(self, acal_type = 'ALL', security_code = None):
+        # this command starts the self calibration of the DMM
         if acal_type not in ['ALL', 'DCV', 'AC', 'OHMS']:
+            # raise error if the input is invalid
             raise ValueError('Invalid input: type must be ALL, DCV, AC, or OHMS')
 
         self.driver.write(f'ACAL {acal_type},{security_code or ""}')
 
     def _start_self_test(self):
+        # this command starts the self test of the DMM
         self.driver.write('TEST')
 
         
@@ -807,24 +828,28 @@ class PBhwcmd:
 
     @delay_decorator
     def _move_chuckZ_contact(self):
+        # move chuck to contact position
         cmd = '37'
         pbresp = self.driver.query(cmd, delay = self.delay_time)
         return pbresp
 
     @delay_decorator
     def _move_chuckZ_separation(self):
+        # move chuck to separation position
         cmd = '39'
         pbresp = self.driver.query(cmd, delay = self.delay_time)
         return pbresp
 
     @delay_decorator
     def _move_chuckZ_align(self):
+        # move chuck to align position
         cmd = '38'
         pbresp = self.driver.query(cmd, delay = self.delay_time)
         return pbresp
     
     @delay_decorator
     def _set_chuck_vacuum(self, vacuum_on=True):
+        # turn on or off the vacuum
         if not isinstance(vacuum_on, bool):
             raise ValueError("vacuum_on must be a boolean value")
         if vacuum_on:
@@ -836,7 +861,7 @@ class PBhwcmd:
     
     @delay_decorator
     def _set_chuck_mode(self, overtravel=None, auto_Z=None, interlock=None, edge_sensor=None):
-
+        # set chuck mode
         if not isinstance(overtravel, (bool, NoneType)):
             raise ValueError("overtravel must be a boolean value or None")
         else:

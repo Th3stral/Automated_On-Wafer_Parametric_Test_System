@@ -1,11 +1,13 @@
+# Description: This file contains the configuration parameters for the application.
 
+# GPIB addresses for the instruments
 PB_GPIB_ADDR = 1
 SMU_GPIB_ADDR = 23
 SWM_GPIB_ADDR = 22
 DMM_GPIB_ADDR = 12
 
 
-
+# test names
 STABILITY_TEST_NAME = 'Stability_Test'
 SELF_CAL_TEST_NAME = 'Instrument_Self-Calibration/Self-Test'
 WAFER_CHARA_TEST_NAME = 'Wafer-Level_Characterisation'
@@ -21,9 +23,10 @@ SMU_CHANNEL_MAP = { # SMU channel configuration, obtained from testing
     'vs2': 6
 }
 
-
+# Switch matrix configuration
 SWM_PIN_ALIAS_LIST = ["u1", "u2", "u3", "u4", "d1", "d2", "d3", "d4"]
-SWM_CONNECTED_RESOURCES_LIST = [
+# Switch matrix connected resources
+SWM_CONNECTED_RESOURCES_LIST = [ 
     "floating",
     "smu1 (40uV-100V 100mA)",
     "smu2 (40uV-200V 1A)",
@@ -36,7 +39,7 @@ SWM_CONNECTED_RESOURCES_LIST = [
     "dmm_lo"
     
 ]
-
+# Switch matrix connected resources alias
 SWM_CONNECTED_RESOURCES_ALIAS_DICT = {
     "smu1 (40uV-100V 100mA)": "smu1",
     "smu2 (40uV-200V 1A)": "smu2",
@@ -50,7 +53,7 @@ SWM_CONNECTED_RESOURCES_ALIAS_DICT = {
     "floating": None
 }
 
-
+# Switch matrix alias dictionary
 SWM_ALIAS_DICT = {
     'pins': {'u1':17,'u2':14,'d2':23,'d1':20,'d4':5,'u4':8,'d3':2,'u3':11},
     'ports': {'smu1':1,'smu2':2,'smu3':3,'smu4':4,'vs1':5,'vs2':6,'gnd':7,'dmm_hi':8,'dmm_lo':9}
@@ -90,8 +93,9 @@ WAFER_STRUCTURE_FOLDER_PATH = Path('data_collection/wafer_structure_files')
 GROUPED_MEASUREMENTS_FOLDER = Path('data_collection/measurements/grouped_results')
 
 
-VARIATION_OBJECT_IGNO_LIST = ['wafer', 'design', 'x', 'y', 'block', 'die', 'block_row', 'block_column']
+VARIATION_OBJECT_IGNO_LIST = ['wafer', 'design', 'x', 'y', 'block', 'die', 'block_row', 'block_column'] # List of keys to ignore when creating variation objects
 
+# Messages
 PIN_VARIANTS_TOO_LONG_MSG = """
                                 The selected pin variation has too many unique items, 
                                 this might cause problem in display or need a long time to re-render the page, 
