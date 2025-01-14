@@ -90,5 +90,7 @@ http://localhost:8501
 ```
 
 Upon seeing this interface, you are ready to interact with the GUI.
+
 **However, be aware of the instrument-related functionalities; you will first need to complete the “Software Set Up” section in [system_set_up_guide.pdf](https://github.com/Th3stral/Automated_On-Wafer_Parametric_Test_System/blob/main/system_set_up_guide.pdf) to use them.**
+
 ![https://imgur.com/SpK1mTd.png](https://imgur.com/SpK1mTd.png)
