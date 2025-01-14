@@ -3,7 +3,9 @@
 **A detailed hardware related system set up guide has been provided in:**
 [system_set_up_guide.pdf](https://github.com/Th3stral/Automated_On-Wafer_Parametric_Test_System/blob/main/system_set_up_guide.pdf)
 
-**Here is a basic guide walk you through the process of installing Python, navigating to your project directory, installing dependencies, and running a the test application.**
+
+**If you are only trying to access to the software application**
+**Here is a basic guide walk you through the process of installing Python, navigating to your project directory, installing dependencies, and running the test application.**
 
 ## Prerequisites
 - A computer running Windows, or Linux
