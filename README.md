@@ -4,11 +4,12 @@
 [system_set_up_guide.pdf](https://github.com/Th3stral/Automated_On-Wafer_Parametric_Test_System/blob/main/system_set_up_guide.pdf)
 
 
-**If you are only trying to access to the software application**
+**If you are only trying to access to the GUI, you could follow the following guidence:**
+
 **Here is a basic guide walk you through the process of installing Python, navigating to your project directory, installing dependencies, and running the test application.**
 
 ## Prerequisites
-- A computer running Windows, or Linux
+- A computer running Windows (preferred), or Linux (havent't tested)
 - Internet connection
 
 ## Step 1: Install Python 3.10 , 3.11, or 3.12
@@ -69,8 +70,6 @@ Run the following command to install all necessary packages listed in `requireme
 ```bash
 pip install -r requirements.txt
 ```
-In addition, download Keysight IO Libraries Suite from the following link:
-[https://www.keysight.com/us/en/lib/software-detail/computer-software/io-libraries-suite-downloads-2175637.html](https://www.keysight.com/us/en/lib/software-detail/computer-software/io-libraries-suite-downloads-2175637.html)
 
 ## Step 4: Run the Streamlit App
 
@@ -82,8 +81,14 @@ streamlit run app.py
 ```
 
 Access the App:
-Once the server starts, open your web browser and go to the URL provided by Streamlit, typically:
+Once the server starts, the default web browser should automatically pop up and display the GUI for the application.
+In the case that it does not pop up open your web browser and go to the URL provided by Streamlit in the termianl window, typically:
 
 ```bash
 http://localhost:8501
 ```
+
+Upon seeing this interface, you are ready to interact with the GUI.
+**However, be aware of the instrument-related functionalities; you will first need to complete the “Software Setup” section in [system_set_up_guide.pdf](https://github.com/Th3stral/Automated_On-Wafer_Parametric_Test_System/blob/main/system_set_up_guide.pdf) to use them.**
+https://imgur.com/SpK1mTd
+![https://imgur.com/SpK1mTd.png](https://imgur.com/SpK1mTd.png)
