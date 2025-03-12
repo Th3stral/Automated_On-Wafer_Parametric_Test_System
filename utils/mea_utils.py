@@ -398,7 +398,7 @@ def main_measurement(pb, dmm, smu, matrix, filtered_df, pin_cfgs, cfg_map, curr_
                         hw_module = 'SWM'
                         matrix.connect_ports_pins(pin_map=pin_config)
                         log_utils.log_status(hw_module, f"Connected the pins for {pin_config_name} with pin map: {pin_config}", level='INFO')
-                        matrix.check_status()
+                        # matrix.check_status()
                         
                         # prepare the structure configuration information
                         structure_cfg_info = {
